@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -12,14 +12,23 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Interactive Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color(0xFF0E1512),
+      theme: ThemeData(
+        scaffoldBackgroundColor: Color(0xFF003F7F),
+        primaryColor: Color(0xFF00A9CC),
+        textTheme: ThemeData.light().textTheme.apply(
+              bodyColor: Colors.white,
+              displayColor: Colors.white,
+            ),
         switchTheme: SwitchThemeData(
           thumbColor: MaterialStateProperty.all(Colors.white),
-          trackColor: MaterialStateProperty.all(Colors.grey.shade800),
+          trackColor: MaterialStateProperty.all(Color(0xFF00A9CC)),
+        ),
+        checkboxTheme: CheckboxThemeData(
+          fillColor: MaterialStateProperty.all(Color(0xFF00A9CC)),
+          checkColor: MaterialStateProperty.all(Colors.white),
         ),
       ),
-      home: const DemoPage(),
+      home: DemoPage(),
     );
   }
 }
@@ -46,52 +55,51 @@ class _DemoPageState extends State<DemoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Interactive Demo"),
-        backgroundColor: Colors.transparent,
+        title: Text("Interactive Demo"),
+        backgroundColor: Color(0xFF00A9CC),
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(18),
+        padding: EdgeInsets.all(18),
         child: ListView(
           children: [
-            const Text(
+            Text(
               "Counter",
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 4),
-            const Text("Tap the button to increment the counter."),
-            const SizedBox(height: 12),
-            Text("Count: $_counter", style: const TextStyle(fontSize: 18)),
-            const SizedBox(height: 12),
+            SizedBox(height: 4),
+            Text("Tap the button to increment the counter."),
+            SizedBox(height: 12),
+            Text("Count: $_counter", style: TextStyle(fontSize: 18)),
+            SizedBox(height: 12),
             Center(
               child: ElevatedButton(
                 onPressed: () => setState(() => _counter++),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.greenAccent.shade400,
-                  foregroundColor: Colors.black,
+                  backgroundColor: Color(0xFF00A9CC),
+                  foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24),
                   ),
                 ),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   child: Text("Increment"),
                 ),
               ),
             ),
-
-            const SizedBox(height: 28),
-            const Text(
+            SizedBox(height: 28),
+            Text(
               "Toggle Visibility",
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 4),
-            const Text("Toggle the visibility of the widget below."),
-            const SizedBox(height: 12),
+            SizedBox(height: 4),
+            Text("Toggle the visibility of the widget below."),
+            SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Show Widget"),
+                Text("Show Widget"),
                 ValueListenableBuilder(
                   valueListenable: _showImage,
                   builder: (context, value, _) => Switch(
@@ -101,32 +109,30 @@ class _DemoPageState extends State<DemoPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12),
             ValueListenableBuilder(
               valueListenable: _showImage,
               builder: (context, value, _) {
                 return value
                     ? ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Image.network(
-                    "https://media.gettyimages.com/id/2204797442/photo/mls-2025-official-headshots.jpg?s=1024x1024&w=gi&k=20&c=1tTJSirEhnNKQB1BtcdeuGFEaSiCscX4jRUybqLpORU=",
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
-                )
-                    : const SizedBox.shrink();
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.network(
+                          "https://media.gettyimages.com/id/2204797442/photo/mls-2025-official-headshots.jpg?s=1024x1024&w=gi&k=20&c=1tTJSirEhnNKQB1BtcdeuGFEaSiCscX4jRUybqLpORU=",
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    : SizedBox.shrink();
               },
             ),
-
-            const SizedBox(height: 28),
-            const Text(
+            SizedBox(height: 28),
+            Text(
               "Task List",
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 4),
-            const Text("Mark tasks as completed by checking the boxes."),
-            const SizedBox(height: 12),
-
+            SizedBox(height: 4),
+            Text("Mark tasks as completed by checking the boxes."),
+            SizedBox(height: 12),
             for (int i = 0; i < _tasks.length; i++)
               CheckboxListTile(
                 value: _taskStatus[i],
